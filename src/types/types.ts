@@ -4,5 +4,6 @@ export interface User {
   username: string;
   age: number | string;
   description: string;
-  profileImage: string;
+  profileImageName?: string;
+  profileImagePath?: string;
 }

@@ -22,3 +22,16 @@
     @apply block text-sm font-medium text-gray-700 mb-1;
   }
 }
+
+/* input의 type이 number일 때 스피너 숨기기 */
+@layer base {
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}

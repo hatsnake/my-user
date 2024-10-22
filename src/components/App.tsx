@@ -23,7 +23,7 @@ const App: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (userData: Omit<User, "id">) => {
+  const handleSubmit = async (userData: FormData) => {
     try {
       if (selectedUser) {
         await userApi.updateUser(selectedUser.id, userData);
@@ -64,14 +64,24 @@ const App: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  const loadImageUrl = (imageUrl: string): string => {
+    let resultImageUrl: string = "";
+    if (imageUrl) {
+      resultImageUrl = userApi.getImageUrl(imageUrl);
+    }
+
+    return resultImageUrl;
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-5 lg:px-8">
+    <div className="min-h-screen py-8 bg-gray-50">
+      <div className="px-4 mx-auto max-w-7xl sm:px-5 lg:px-8">
         <UserList
           users={users}
           onEdit={handleEdit}
           onDelete={handleDelete}
           onAdd={handleAdd}
+          onLoadImageUrl={loadImageUrl}
         />
         <Modal
           isOpen={isModalOpen}
@@ -81,6 +91,7 @@ const App: React.FC = () => {
           <UserForm
             onSubmit={handleSubmit}
             initialData={selectedUser || undefined}
+            onLoadImageUrl={loadImageUrl}
           />
         </Modal>
       </div>
